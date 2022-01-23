@@ -5,25 +5,48 @@ const express = require('express')
 
 const app = express()
 
-//const url = 'https://www.twitch.tv/directory'
-const url = 'https://www.theguardian.com/uk'
+const url2 = 'https://rykoszet.info/category/wot'
+const url1 = 'https://www.theguardian.com/uk'
 
-
-axios(url)
+function theguardianScrap(){
+axios(url1)
     .then(response => {
         const html = response.data
         const $ = cheerio.load(html)
-        const games = []
+        const titles = []
 
         $('.fc-item__title', html).each(function() {
-            const title = $(this).text()
+            const title = $(this).find('a').text()
             const url = $(this).find('a').attr('href')
-            games.push({
+            titles.push({
                 title,
                 url
             })
         })
-        console.log(games)
+        console.log(titles)
     }).catch(err => console.log(err))
+}
+function RykoszetScrap(){
+    axios(url2)
+        .then(response => {
+            const html = response.data
+            const $ = cheerio.load(html)
+            const headers = []
+    
+            $('.post-content', html).each(function() {
+                const title = $(this).find('a').text()
+                const url = $(this).find('a').attr('href')
+                headers.push({
+                    title,
+                    url
+                })
+            })
+            console.log(headers)
+        }).catch(err => console.log(err))
+        
+    }
+theguardianScrap()
+RykoszetScrap()
+
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
