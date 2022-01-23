@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Exr3d/Sprawozdanie3/issues"
   },
-  "homepage": "https://github.com/Exr3d/Sprawozdanie3#readme"
+  "homepage": "https://github.com/Exr3d/Sprawozdanie3#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
